@@ -6,12 +6,14 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class BaseApi {
-    private baseUrl = 'http://localhost:3000/';
+    
+    // private baseUrl = 'http://localhost:3000/';
+   
 
     constructor(public httpClient: HttpClient) {}
 
     private getUrl(url: string = ''): string {
-        return this.baseUrl + url;
+        return this.baseUrl + url + '.json';
     }
 
     public get(url: string = ''): Observable<any> {
@@ -31,4 +33,7 @@ export class BaseApi {
             responseType: 'json'
         });
     }
+
+    // (https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyABVGaiU0p-ltWe0yHacLbn6ONQIDqtXGc)
+    private baseUrl = 'https://angular-spa-project.firebaseio.com/'
 }

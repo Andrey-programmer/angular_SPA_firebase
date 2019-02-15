@@ -21,8 +21,14 @@ export class UsersService extends BaseApi {
   }
  */
 
-getUserByEmail(email: string): Observable<User> {
-  return this.get(`users?email=${email}`).map((user) => user[0] ? user[0] : undefined);
+loginUser(user: User): Observable<any> {
+  delete user.name
+  delete user.id
+  const userLogin = Object.assign(user, {returnSecureToken: true}) 
+  // console.log(userReg)
+
+  return this.httpClient.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyABVGaiU0p-ltWe0yHacLbn6ONQIDqtXGc', userLogin)
+  // return this.get(`users?email=${email}`).map((user) => user[0] ? user[0] : undefined);
 }
 
  /*  createNewUser(user: User): Observable<User> {
@@ -31,7 +37,13 @@ getUserByEmail(email: string): Observable<User> {
     });
   } */
 
-  createNewUser(user: User): Observable<User> {
-    return this.post('users', user);
+  createNewUser(user: User): Observable<any> {
+    delete user.name
+    delete user.id
+    const userReg = Object.assign(user, {returnSecureToken: true}) 
+    // console.log(userReg)
+    
+    return this.httpClient.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyABVGaiU0p-ltWe0yHacLbn6ONQIDqtXGc', userReg)
+    // return this.post('users', user);
   }
 }

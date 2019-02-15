@@ -78,8 +78,32 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
-    this.usersService.getUserByEmail(this.form.value.email).subscribe((user: User) => {
+    // console.log(this.form);
+    const {email, password, name} = this.form.value;
+    const user = new User (
+      email,
+      password,
+      name
+    );
+    
+    this.usersService.loginUser(user).subscribe((userData: any) => {
+      console.log(userData)
+    },
+    (error) => {
+      // console.log(error.error.error.message))
+      if (error.error.error.message === 'EMAIL_NOT_FOUND') {
+        this.showMessage( {
+          text: 'Такого пользователя не существует',
+          type: 'danger'
+        });
+      } else if (error.error.error.message === 'INVALID_PASSWORD')
+      {
+        this.showMessage({text: 'Пароль неверный', type: 'danger'});
+      } else {
+        this.showMessage({text: error.error.error.message, type: 'danger'});
+      }
+    })
+    /* this.usersService.getUserByEmail(this.form.value.email).subscribe((user: User) => {
       console.log(user);
       if (user) {
         if (user.password === this.form.value.password) {
@@ -97,7 +121,7 @@ export class LoginComponent implements OnInit {
           type: 'danger'
         });
       }
-    });
+    });  */
   }
 
 }
