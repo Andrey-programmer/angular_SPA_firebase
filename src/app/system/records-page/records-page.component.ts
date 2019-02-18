@@ -16,13 +16,16 @@ export class RecordsPageComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesService.getCategories().subscribe(categories => {
+      console.log(categories)
       this.categories = categories;
       this.isLoaded = true;
     });
   }
 
   newCategoryAdded(category: Category) {
-      this.categories.push(category);
+    this.categories.push(category);
+    console.log('================================================')
+    console.log(category)
   }
 
   categoryEdited(category: Category) {

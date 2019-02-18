@@ -14,23 +14,26 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
 
   @Input() categories: Category[] = [];
   @Output() categoryEdit: EventEmitter<Category> = new EventEmitter<Category>();
-  currentCategoryId = 1; /* Получаем Id из шаблона через байдинг */
+  currentCategoryId: string; /* Получаем Id из шаблона через байдинг */
   currentCategory: Category;
   message: Message;
+  categoriesEdit: Category[]
 
   sub1: Subscription;
 
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
+    console.log('edit category', this.categories)
     this.changeCategory();
     this.message = new Message('success', '');
+    console.log('OnInit',this.categoriesEdit)
   }
 
   onSubmit(form: NgForm) {
     const {name, capacity} = form.value;
     const _capacity = Math.abs(capacity);
-    const category = new Category(name, _capacity, +this.currentCategoryId);
+    const category = new Category(name, _capacity, this.currentCategoryId);
 
 
     this.sub1 = this.categoriesService.updateCategory(category).subscribe((caTegory: Category) => {
@@ -45,8 +48,13 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
   }
 
   changeCategory() {
-    // console.log(this.currentCategoryId);
-    this.currentCategory = this.categories.find(c => c.id === +this.currentCategoryId);
+    // Получаем массив из объекта
+    this.categoriesEdit = Object.values(this.categories)
+    const ids = Object.keys(this.categories)
+    this.categoriesEdit.forEach((category, index) => {
+      category.id = ids[index]
+    });
+    this.currentCategory = this.categoriesEdit.find(c => c.id === this.currentCategoryId);
     console.log(this.currentCategory);
   }
 

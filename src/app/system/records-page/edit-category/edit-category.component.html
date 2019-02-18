@@ -17,7 +17,7 @@
              (change)="changeCategory()"
              [ngModelOptions]="{standalone: true}"
           >
-                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                <option *ngFor="let category of categoriesEdit" [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
         <div 
