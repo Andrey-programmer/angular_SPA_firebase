@@ -38,9 +38,12 @@ loginUser(user: User): Observable<any> {
   } */
 
   createNewUser(user: User): Observable<any> {
-    delete user.name
+    // delete user.name
     delete user.id
-    const userReg = Object.assign(user, {returnSecureToken: true}) 
+    const userReg = Object.assign(user, {
+      returnSecureToken: true,
+      displayName: user.name
+    }) 
     // console.log(userReg)
     
     return this.httpClient.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyABVGaiU0p-ltWe0yHacLbn6ONQIDqtXGc', userReg)

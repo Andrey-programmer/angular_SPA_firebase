@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { BaseApi } from '../../../shared/core/base-api';
 import { Bill } from '../models/bill.model';
 
-@Injectable(/* {
+@Injectable({
   providedIn: 'root'
-} */)
+})
 export class BillService extends BaseApi {
 
   constructor(public httpClient: HttpClient) {

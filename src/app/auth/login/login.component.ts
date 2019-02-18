@@ -88,6 +88,14 @@ export class LoginComponent implements OnInit {
     
     this.usersService.loginUser(user).subscribe((userData: any) => {
       console.log(userData)
+      const userIn = new User(
+        userData.email,
+        this.form.value.password,
+        userData.displayName
+      )
+      window.localStorage.setItem('user', JSON.stringify(userIn));
+      this.authService.login();
+      this.router.navigate(['/system', 'bill']);
     },
     (error) => {
       // console.log(error.error.error.message))
