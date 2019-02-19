@@ -47,11 +47,11 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
   }
 
   getCategoryCost(category: Category): number {
-    const categoryEvents = this.events.filter(event => event.category === category.id && event.type === 'outcome');
-    return categoryEvents.reduce((total, event) => {
-      total += event.amount;
-      return total;
-    }, 0);
+    // const categoryEvents = this.events.filter(event => event.category === category.id && event.type === 'outcome');
+    // return categoryEvents.reduce((total, event) => {
+    //   total += event.amount;
+      return /* total;
+    }, 0); */
   }
 
   private getPercent(category: Category): number  {

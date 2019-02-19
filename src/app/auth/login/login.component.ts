@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.form.disable()
     // console.log(this.form);
     const {email, password, name} = this.form.value;
     const user = new User (

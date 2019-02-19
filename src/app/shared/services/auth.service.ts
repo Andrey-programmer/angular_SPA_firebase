@@ -17,6 +17,9 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    if(window.localStorage['user']) {
+      this.isAuthentificated = true
+    }
     return this.isAuthentificated;
   }
 

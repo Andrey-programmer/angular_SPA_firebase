@@ -19,6 +19,8 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
   message: Message;
   categoriesEdit: Category[]
 
+  arrays = ["1", 2, 3, 4, 5]
+
   sub1: Subscription;
 
   constructor(private categoriesService: CategoriesService) { }
