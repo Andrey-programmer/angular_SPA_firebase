@@ -35,7 +35,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
 
 
     this.sub1 = this.categoriesService.updateCategory(category).subscribe((caTegory: Category) => {
-      console.log('Category', caTegory);
+      // console.log('Category', caTegory);
       this.categoryEdit.emit(caTegory);
       this.message.text = 'Категория успешно отредактирована!';
       setTimeout(() => {
@@ -48,7 +48,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
   changeCategory() {
     // console.log(this.currentCategoryId);
     this.currentCategory = this.categories.find(c => c.id === this.currentCategoryId);
-    console.log(this.currentCategory);
+    // console.log(this.currentCategory);
   }
 
   ngOnDestroy() {

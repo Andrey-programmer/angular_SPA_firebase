@@ -24,6 +24,9 @@ export class AddEventComponent implements OnInit, OnDestroy {
   sub1: Subscription;
   sub2: Subscription;
 
+  currentCategoryId: string;
+  currentCategory: Category;
+
   types = [
     {
     type: 'income', label: 'Доход'
@@ -45,11 +48,13 @@ export class AddEventComponent implements OnInit, OnDestroy {
   constructor(private eventsService: EventsService, private billService: BillService) { }
 
   ngOnInit() {
+    this.currentCategoryId = this.categories[0].id
+    this.changeCategory()
     this.message = new Message('danger', '');
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    // console.log(form.value);
     const  {amount, description, category, type} = form.value;
     const _amount = Math.abs(amount);
 
@@ -83,6 +88,12 @@ export class AddEventComponent implements OnInit, OnDestroy {
     // this.eventsService.addEvent(event);
   }
 
+  changeCategory() {
+    // console.log(this.currentCategoryId);
+    this.currentCategory = this.categories.find(c => c.id === this.currentCategoryId);
+    // console.log(this.currentCategory);
+  }
+  
   ngOnDestroy() {
     if (this.sub1) {
       this.sub1.unsubscribe();

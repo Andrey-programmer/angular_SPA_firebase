@@ -14,8 +14,13 @@ import { CategoriesService } from '../../shared/services/categories.service';
 export class AddCategoryComponent implements OnDestroy {
 
   sub1: Subscription;
+  sub2: Subscription;
+  
+  loading = false
 
-  @Output() categoryAdd: EventEmitter<Category> = new EventEmitter<Category>();
+  idCategory: string;
+
+  @Output() categoryAdd: EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor(private categoriesService: CategoriesService) { }
 
@@ -29,17 +34,27 @@ export class AddCategoryComponent implements OnDestroy {
 
 
 
-    this.sub1 = this.categoriesService.addCategory(category).subscribe((caTegory: Category) => {
-      // console.log('caTegory', caTegory);
+    this.sub1 = this.categoriesService.addCategory(category).subscribe((caTegory: any) => {
+      this.idCategory = caTegory.name
+      console.log('caTegory', caTegory);
+      this.sub2 = this.categoriesService.getCategoriyById(this.idCategory).subscribe(
+        (category) => {
+          console.log(category)
+          category.id = this.idCategory;
+          this.categoryAdd.emit(category);
+        }
+      )
       form.reset();
-      form.form.patchValue({capacity: 1/* , name: 'Vasya' */});
-      this.categoryAdd.emit(caTegory);
+      form.form.patchValue({capacity: 1});
     });
   }
 
   ngOnDestroy() {
     if (this.sub1) {
        this.sub1.unsubscribe();
+    }
+    if(this.sub2) {
+      this.sub2.unsubscribe();
     }
   }
 }
