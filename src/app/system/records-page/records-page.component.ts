@@ -16,8 +16,16 @@ export class RecordsPageComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesService.getCategories().subscribe(categories => {
-      console.log(categories)
-      this.categories = categories;
+      // console.log(categories)
+      const categoryVal = Object.values(categories)
+      const ids = Object.keys(categories)
+      // console.log(ids)
+      categoryVal.forEach((category, index) => {
+        category.id = ids[index]
+      })
+      // console.log(categoryVal)
+      this.categories = categoryVal;
+      // console.log(this.categories)
       this.isLoaded = true;
     });
   }

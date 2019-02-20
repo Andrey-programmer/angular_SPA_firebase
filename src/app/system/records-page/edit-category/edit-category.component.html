@@ -7,9 +7,6 @@
     </div>
     <div class="card-block">
       <div *ngIf="message.text" class="alert alert-{{ message.type }}">{{ message.text }}</div>
-      <ul>
-        <li *ngFor="let item of arrays">{{item}}</li>
-      </ul>
       <form #f="ngForm" (ngSubmit)="onSubmit(f)"> 
         <div class="form-group">
           <label class="control-label" for="e-select-category">Выберете категорию</label>
@@ -20,7 +17,7 @@
              (change)="changeCategory()"
              [ngModelOptions]="{standalone: true}"
           >
-                <option *ngFor="let category of categoriesEdit" [value]="category.id">{{ category.name }}</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
         <div 
