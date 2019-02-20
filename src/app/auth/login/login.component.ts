@@ -99,6 +99,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/system', 'bill']);
     },
     (error) => {
+      this.form.enable()
       // console.log(error.error.error.message))
       if (error.error.error.message === 'EMAIL_NOT_FOUND') {
         this.showMessage( {

@@ -32,10 +32,11 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
       this.eventsService.getEvents()
     ).subscribe((data: [Bill, Category[], MyEvent[]]) => {
       // console.log(data);
+      // Общий счёт
       this.bill = data[0];
-      this.categories = data[1];
-      this.events = data[2];
-
+      // Получаем категории
+      this.categories = this.getCategories(data[1]);
+      this.events = this.getEvents(data[2]);
       this.isLoaded = true;
     });
   }
@@ -46,12 +47,34 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  getCategories(categoriesObj) {
+    const categoryArray: Category[] = Object.values(categoriesObj)
+    const ids = Object.keys(categoriesObj)
+    categoryArray.forEach((category: Category, index) => {
+      category.id = ids[index]
+      // console.log(category)
+    })
+    console.log(categoryArray)
+    return categoryArray
+  }
+
+  getEvents(eventsObj) {
+    const eventsArray: MyEvent[] = Object.values(eventsObj)
+    const ids = Object.keys(eventsObj)
+    eventsArray.forEach((event: MyEvent, index) => {
+      event.id = ids[index]
+      // console.log(category)
+    })
+    console.log(eventsArray)
+    return eventsArray
+  }
+
   getCategoryCost(category: Category): number {
-    // const categoryEvents = this.events.filter(event => event.category === category.id && event.type === 'outcome');
-    // return categoryEvents.reduce((total, event) => {
-    //   total += event.amount;
-      return /* total;
-    }, 0); */
+    const categoryEvents = this.events.filter(event => event.categoryId === category.id && event.type === 'outcome');
+    return categoryEvents.reduce((total, event) => {
+      total += event.amount;
+      return total;
+    }, 0);
   }
 
   private getPercent(category: Category): number  {

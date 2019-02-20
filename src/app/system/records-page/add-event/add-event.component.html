@@ -15,8 +15,7 @@
                     required
                     [(ngModel)]="currentCategoryId"
                     name="category"
-                    (change)="changeCategory()"
-                    [ngModelOptions]="{standalone: true}"
+                    (change)="changeCategory()"                    
                     >
                         <option *ngFor="let category of categories"
                         [value]="category.id">{{ category.name }}</option>                       

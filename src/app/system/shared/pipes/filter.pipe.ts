@@ -26,5 +26,5 @@ export class FilterPipe implements PipeTransform {
       return t[field].toLowerCase().indexOf(value.toLocaleLowerCase()) !== -1;
     } );
   }
-
+ 
 }
