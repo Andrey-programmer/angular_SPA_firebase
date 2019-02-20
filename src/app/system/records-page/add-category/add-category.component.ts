@@ -1,8 +1,9 @@
 import { Subscription } from 'rxjs-compat';
-import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Category } from '../../shared/models/category.model';
 import { CategoriesService } from '../../shared/services/categories.service';
+import { Message } from 'src/app/shared/models/message.model';
 
 
 @Component({
@@ -11,10 +12,11 @@ import { CategoriesService } from '../../shared/services/categories.service';
   styleUrls: ['./add-category.component.scss']
 })
 
-export class AddCategoryComponent implements OnDestroy {
+export class AddCategoryComponent implements OnDestroy, OnInit {
 
   sub1: Subscription;
   sub2: Subscription;
+  message: Message;
   
   loading = false
 
@@ -24,6 +26,9 @@ export class AddCategoryComponent implements OnDestroy {
 
   constructor(private categoriesService: CategoriesService) { }
 
+  ngOnInit() {
+    this.message = new Message('success', '');
+  }
 
   onSubmit(form: NgForm) {
     // console.log(form.form);
@@ -31,6 +36,8 @@ export class AddCategoryComponent implements OnDestroy {
     const capacity = Math.abs(form.form.controls.capacity.value);
     const category = new Category(name, capacity);
     // console.log(category, name, capacity);
+    form.reset();
+    form.form.patchValue({capacity: 1});
 
 
 
@@ -39,13 +46,15 @@ export class AddCategoryComponent implements OnDestroy {
       console.log('caTegory', caTegory);
       this.sub2 = this.categoriesService.getCategoriyById(this.idCategory).subscribe(
         (category) => {
-          console.log(category)
+          // console.log(category)
           category.id = this.idCategory;
           this.categoryAdd.emit(category);
+          this.message.text = 'Категория была добавлена!';
+          setTimeout(() => {
+            this.message.text = '';
+          }, 3000);
         }
       )
-      form.reset();
-      form.form.patchValue({capacity: 1});
     });
   }
 
