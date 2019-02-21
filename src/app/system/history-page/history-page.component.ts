@@ -33,7 +33,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     ).subscribe((data: [Category[], MyEvent[]]) => {
       this.categories = this.getCategories(data[0]);
       this.events = this.getEvents(data[1]);
-      console.log(data)
+      // console.log(data)
 
       this.setOrigionalEvents();
       this.calculateChatData();
@@ -49,7 +49,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       category.id = ids[index]
       // console.log(category)
     })
-    console.log('categoryArray', categoryArray)
+    // console.log('categoryArray', categoryArray)
     return categoryArray
   }
 
