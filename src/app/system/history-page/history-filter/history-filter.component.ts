@@ -1,7 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Category } from '../../shared/models/category.model';
-import { CheckboxControlValueAccessor } from '@angular/forms';
-import { CheckType } from '@angular/core/src/view';
 
 @Component({
   selector: 'block-history-filter',
@@ -42,15 +40,15 @@ export class HistoryFilterComponent implements OnInit {
     if (target.checked) {
       if (this[field].indexOf(target.value) === -1) {
         this[field].push(target.value);
-        console.log(this[field]);
+        // console.log(this[field]);
       }
     } else {
       this[field] = this[field].filter((item) => item !== target.value);
-      console.log(this[field]);
+      // console.log(this[field]);
     }
   }
 
-  changeType(target) {
+  changeType(target) { 
    this.calculateInputParams('selectedTypes', target);
   }
 

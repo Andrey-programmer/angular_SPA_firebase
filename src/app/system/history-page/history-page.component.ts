@@ -68,6 +68,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     this.chartData = [];
     this.categories.forEach((category) => {
         const categoryEvents = this.filteredEvents.filter((event) => event.categoryId === category.id && event.type === 'outcome');
+        
         this.chartData.push({
           name: category.name,
           value: categoryEvents.reduce((total, event) => {
@@ -80,6 +81,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
   private setOrigionalEvents() {
     this.filteredEvents = this.events.slice();
+    console.log('filteredEvents', this.filteredEvents)
   }
 
 
@@ -108,7 +110,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     })
     .filter((event) => {
       // console.log('Event-2', event );
-      return filterData.categories.indexOf(event.categoryName.toString()) !== -1;
+      return filterData.categories.indexOf(event.categoryId.toString()) !== -1;
     })
     .filter((event) => {
       // console.log('Event-3', event);
@@ -116,7 +118,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       return momentDate.isBetween(startPeriod, endPeriod);
     });
 
-    console.log('DATA', data);
+    // console.log('DATA', data);
 
     this.calculateChatData();
   }
