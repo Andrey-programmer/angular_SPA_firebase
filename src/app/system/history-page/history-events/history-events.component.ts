@@ -21,7 +21,17 @@ export class HistoryEventsComponent implements OnInit {
 
   ngOnInit() {
     this.events.forEach((event) => {
-      // event.categoryName = this.categories.find(category => category.id === event.category).name;
+      
+      const findCategory =
+      this.categories.find(category => 
+        {
+          // console.log('categoryId', category.id, event.categoryId) 
+          return category.id === event.categoryId
+        });
+        // console.log('findCategory', findCategory)
+      if(findCategory) {
+        event.categoryName = findCategory.name
+      }
     });
   }
 

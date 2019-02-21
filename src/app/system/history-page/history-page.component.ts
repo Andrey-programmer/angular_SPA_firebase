@@ -31,14 +31,37 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       this.categoriesService.getCategories(),
       this.eventsService.getEvents()
     ).subscribe((data: [Category[], MyEvent[]]) => {
-      this.categories = data[0];
-      this.events = data[1];
+      this.categories = this.getCategories(data[0]);
+      this.events = this.getEvents(data[1]);
+      console.log(data)
 
       this.setOrigionalEvents();
       this.calculateChatData();
 
       this.isLoaded = true;
     });
+  }
+
+  getCategories(categoriesObj) {
+    const categoryArray: Category[] = Object.values(categoriesObj)
+    const ids = Object.keys(categoriesObj)
+    categoryArray.forEach((category: Category, index) => {
+      category.id = ids[index]
+      // console.log(category)
+    })
+    console.log('categoryArray', categoryArray)
+    return categoryArray
+  }
+
+  getEvents(eventsObj) {
+    const eventsArray: MyEvent[] = Object.values(eventsObj)
+    const ids = Object.keys(eventsObj)
+    eventsArray.forEach((event: MyEvent, index) => {
+      event.id = ids[index]
+      // console.log(category)
+    })
+    // console.log(eventsArray)
+    return eventsArray
   }
 
   calculateChatData(): void {
@@ -85,7 +108,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     })
     .filter((event) => {
       // console.log('Event-2', event );
-      return filterData.categories.indexOf(event.category.toString()) !== -1;
+      return filterData.categories.indexOf(event.categoryName.toString()) !== -1;
     })
     .filter((event) => {
       // console.log('Event-3', event);

@@ -54,7 +54,7 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
       category.id = ids[index]
       // console.log(category)
     })
-    console.log(categoryArray)
+    // console.log(categoryArray)
     return categoryArray
   }
 
@@ -65,7 +65,7 @@ export class PlanningPageComponent implements OnInit, OnDestroy {
       event.id = ids[index]
       // console.log(category)
     })
-    console.log(eventsArray)
+    // console.log(eventsArray)
     return eventsArray
   }
 
