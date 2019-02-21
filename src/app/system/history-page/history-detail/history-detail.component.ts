@@ -17,6 +17,7 @@ export class HistoryDetailComponent implements OnInit, OnDestroy {
 
   event: MyEvent;
   category: Category;
+  number: string;
 
   isLoaded = false;
 
@@ -26,31 +27,19 @@ export class HistoryDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub1 = this.route.params
-                .subscribe((params: Params) => {
-                  // console.log(params['id']);
-                  this.eventsService.getEventById(params['id']).subscribe((event: MyEvent) => {
-                    console.log(event);
-                    this.event = event;
-                    this.categoriesService.getCategoriyById(String(event.categoryId)).subscribe((category: Category) => {
-                      this.category = category;
-                      // console.log(category);
-                      this.isLoaded = true;
-                    });
-                  });
-                });
-  /* this.sub1 = this.route.params
-                .mergeMap((params: Params) => {
-                  this.eventsService.getEventById(params['id']);
-                })
-                 .mergeMap((event: MyEvent) => {
-                  this.event = event;
-                  return this.categoriesService.getCategoriyById(event.category);
-                })
-                .subscribe((category: Category) => {
-                  this.category = category;
-                  console.log(category);
-                  this.isLoaded = true;
-                  }); */
+      .subscribe((params: Params) => {
+        // console.log(params['id']);
+        this.number = params['id']
+        this.eventsService.getEventById(params['id']).subscribe((event: MyEvent) => {
+          // console.log(event);
+          this.event = event;
+          this.categoriesService.getCategoriyById(String(event.categoryId)).subscribe((category: Category) => {
+            this.category = category;
+            // console.log(category);
+            this.isLoaded = true;
+          });
+        });
+      });
   }
 
   ngOnDestroy() {

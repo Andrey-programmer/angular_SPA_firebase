@@ -26,7 +26,7 @@ export class CategoriesService extends BaseApi {
    }
 
    getCategoriyById(id: string): Observable<Category> {
-     console.log(id);
+    //  console.log(id);
      return this.get(`categories/${id}`);
    }
 }

@@ -67,14 +67,14 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   calculateChatData(): void {
     this.chartData = [];
     this.categories.forEach((category) => {
-        // const categoryEvents = this.filteredEvents.filter((event) => event.category === category.id && event.type === 'outcome');
-        // this.chartData.push({
-        //   name: category.name,
-        //   value: categoryEvents.reduce((total, event) => {
-        //     total += event.amount;
-        //     return total;
-        //   }, 0)
-        // });
+        const categoryEvents = this.filteredEvents.filter((event) => event.categoryId === category.id && event.type === 'outcome');
+        this.chartData.push({
+          name: category.name,
+          value: categoryEvents.reduce((total, event) => {
+            total += event.amount;
+            return total;
+          }, 0)
+        });
     });
   }
 
