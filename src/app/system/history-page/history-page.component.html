@@ -14,7 +14,14 @@
     <block-animated-loader></block-animated-loader> 
 </div>
 <div *ngIf="isLoaded">
-  <block-history-chart [data]="chartData"></block-history-chart>
+  <block-history-chart [data]="chartData">
+      <h4>
+        График 
+        <span *ngIf="typeEvents === 'income'">доходов </span>
+        <span *ngIf="typeEvents === 'outcome'">расходов </span>
+        по выбранным категориям
+      </h4>
+  </block-history-chart>
 
   <block-history-events [categories]="categories" [events]="filteredEvents"></block-history-events>
   <div *ngIf="isFilterVisible">

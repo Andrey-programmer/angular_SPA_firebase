@@ -21,7 +21,7 @@ export class HistoryChartComponent implements OnInit {
   @Input() data;
 
   ngOnInit () {
-    console.log(this.data)
+    // console.log(this.data)
   }
 
 }

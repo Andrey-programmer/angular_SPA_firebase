@@ -18,6 +18,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   events: MyEvent[] = [];
   filteredEvents: MyEvent[] = [];
   chartData = [];
+  typeEvents = 'outcome'
 
   isLoaded = false;
   isFilterVisible = false;
@@ -67,8 +68,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   calculateChatData(): void {
     this.chartData = [];
     this.categories.forEach((category) => {
-        const categoryEvents = this.filteredEvents.filter((event) => event.categoryId === category.id && event.type === 'outcome');
-        
+        const categoryEvents = this.filteredEvents.filter((event) => event.categoryId === category.id && event.type === this.typeEvents);
         this.chartData.push({
           name: category.name,
           value: categoryEvents.reduce((total, event) => {
@@ -81,7 +81,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
   private setOrigionalEvents() {
     this.filteredEvents = this.events.slice();
-    console.log('filteredEvents', this.filteredEvents)
+    // console.log('filteredEvents', this.filteredEvents)
   }
 
 
@@ -97,9 +97,11 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   onFilterApply(filterData) {
     this.toggleFilterVisible(false);
     this.setOrigionalEvents();
-    // console.log(filterData);
+    // console.log(filterData.types);
     // console.log(this.events);
     // console.log(this.filteredEvents);
+    this.typeEvents = filterData.types.find(type => type === 'outcome') || 'income' 
+    console.log(this.typeEvents)
 
     const startPeriod = moment().startOf(filterData.period).startOf('d');
     const endPeriod = moment().endOf(filterData.period).endOf('d');
