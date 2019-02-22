@@ -11,7 +11,6 @@ import { MyEvent } from '../../shared/models/event.model';
 import { BillService } from '../../shared/services/bill.service';
 import { EventsService } from '../../shared/services/events.service';
 
-
 @Component({
   selector: 'block-add-event',
   templateUrl: './add-event.component.html',
@@ -48,16 +47,15 @@ export class AddEventComponent implements OnInit, OnDestroy {
   constructor(private eventsService: EventsService, private billService: BillService) { }
 
   ngOnInit() {
-    this.currentCategoryId = this.categories[0].id
     this.changeCategory()
-    this.message = new Message('danger', '');
+    this.message = new Message('success', '');
   }
 
   onSubmit(form: NgForm) {
     // console.log(form.value);
     const  {amount, description, category, type} = form.value;
     const _amount = Math.abs(amount);
-    console.log('category', form.value)
+    // console.log('category', form.value)
 
     const event = new MyEvent(type, _amount, category, moment().format('DD.MM.YYYY HH:mm:ss'), description);
 
@@ -84,13 +82,18 @@ export class AddEventComponent implements OnInit, OnDestroy {
           category: 1,
           type: 'outcome'
         });
+        this.message.text = 'Событие было добавлено!';
+          setTimeout(() => {
+            this.message.text = '';
+          }, 3000);
       });
     });
-    // this.eventsService.addEvent(event);
+    this.changeCategory()
   }
 
   changeCategory() {
     // console.log(this.currentCategoryId);
+    this.currentCategoryId = this.categories[0].id
     this.currentCategory = this.categories.find(c => c.id === this.currentCategoryId);
     // console.log(this.currentCategory);
   }

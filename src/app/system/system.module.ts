@@ -23,6 +23,7 @@ import { HistoryDetailComponent } from './history-page/history-detail/history-de
 import { HistoryFilterComponent } from './history-page/history-filter/history-filter.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { NoSpacePipe } from './shared/pipes/no-space.pipe';
+import { BillChangeComponent } from './bill-page/bill-change/bill-change.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { NoSpacePipe } from './shared/pipes/no-space.pipe';
     HistoryDetailComponent,
     HistoryFilterComponent,
     FilterPipe,
-    NoSpacePipe
+    NoSpacePipe,
+    BillChangeComponent
   ],
   providers: [BillService, EventsService]
 })

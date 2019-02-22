@@ -1,0 +1,38 @@
+
+<div class="card-block">
+  <button  
+    class="btn btn-toggle"
+    (click)="toggler = !toggler"
+  >
+    Изменить сумму счёта
+  </button>
+  <div class="wrapper">
+    <form 
+      *ngIf="toggler"
+      #f="ngForm" 
+      (ngSubmit)="onSubmit(f)"
+    > 
+      <div 
+        class="form-group"
+        [ngClass]="{'has-error': bill.invalid && bill.touched}"
+      > 
+        <label class="control-label" for="bill-value">Введите новый лимит</label>
+        <input
+          type="number"            
+          id="bill-value" 
+          class="form-control"
+          name="bill"
+          #bill="ngModel"
+          [ngModel]="1" 
+          required
+          min="1"
+        >
+        <span 
+        *ngIf="bill.invalid && bill.touched"
+          class="form-help-text">Введите новый лимит</span>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled] ="f.invalid">Добавить</button>
+    </form>
+    <div *ngIf="message.text" class="alert alert-{{ message.type }}">{{ message.text }}</div>
+  </div>
+</div>
