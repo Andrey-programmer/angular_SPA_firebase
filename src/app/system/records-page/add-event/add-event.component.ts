@@ -82,6 +82,8 @@ export class AddEventComponent implements OnInit, OnDestroy {
           category: 1,
           type: 'outcome'
         });
+        this.currentCategoryId = this.categories[0].id
+        this.currentCategory = this.categories.find(c => c.id === this.currentCategoryId);
         this.message.text = 'Событие было добавлено!';
           setTimeout(() => {
             this.message.text = '';
